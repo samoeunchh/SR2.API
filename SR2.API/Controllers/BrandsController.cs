@@ -77,12 +77,15 @@ namespace SR2.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Brand>> PostBrand(Brand brand)
         {
+            if (await IsBrandExist(brand.BrandName)) return BadRequest("Brand name is already exist");
+            brand.BrandId = Guid.NewGuid();
             _context.Brand.Add(brand);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetBrand", new { id = brand.BrandId }, brand);
         }
-
+        private async Task<bool> IsBrandExist(string name) 
+            => await _context.Brand.AnyAsync(x => x.BrandName.Equals(name));
         // DELETE: api/Brands/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(Guid id)
