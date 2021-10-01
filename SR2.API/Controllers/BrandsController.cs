@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SR2.API.Models;
+using SR2.DataLayer;
 
 namespace SR2.API.Controllers
 {

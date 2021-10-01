@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SR2.DataLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
