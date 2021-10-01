@@ -19,6 +19,11 @@ namespace SR2.PresentationConsole
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             //Get data from api
+            var brand = new Brand
+            {
+                BrandName = "Toyota",
+            };
+            PostBrand(brand).Wait();
             GetBrandAsyn().Wait();
             Console.WriteLine("Finish");
             Console.ReadLine();
@@ -39,6 +44,19 @@ namespace SR2.PresentationConsole
             else
             {
                 Console.WriteLine("Error");
+            }
+        }
+        static async Task PostBrand(Brand brand)
+        {
+            HttpResponseMessage response = await client.PostAsJsonAsync<Brand>("api/Brands",brand);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Record was saved");
+            }
+            else
+            {
+                var mgs = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                Console.WriteLine(mgs);
             }
         }
     }
